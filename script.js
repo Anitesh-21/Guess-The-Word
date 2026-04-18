@@ -1,4 +1,5 @@
 const btn = document.getElementById("btn");
+let inp = document.getElementById("inp");
 
 const words = [
     "cpp",
@@ -26,6 +27,7 @@ document.getElementById("p2").textContent = displayWord;
 let guessedList = [];
 
 function guessLetter(){
+    let btn = document.getElementById("btn");
     let inp = document.getElementById("inp");
     if(!inp.value){
         alert("Please enter a letter.");
@@ -33,7 +35,6 @@ function guessLetter(){
     }
     let val = inp.value.toUpperCase();
     inp.value = "";
-    console.log(guessedList);
     if(guessedList.includes(val)){
         alert("You already guessed this letter. Please enter another letter.");
         return;
@@ -43,20 +44,23 @@ function guessLetter(){
     let allLettersGuessed = true;
     for(let i=0;i<selectedWord.length;i++){
         if(guessedList.includes(selectedWord[i].toUpperCase())){
-            updatedDisplay+=selectedWord[i].toUpperCase()+" ";
+            updatedDisplay+=selectedWord[i].toUpperCase()+"  ";
         }
         else{
-            updatedDisplay+="_ ";
+            updatedDisplay+="_  ";
             allLettersGuessed = false;
         }
     }
-    console.log(updatedDisplay);
     document.getElementById("p2").textContent = updatedDisplay;
     if(allLettersGuessed){
         alert(`Congratulations !!! You guessed the word.`)
+        btn.textContent = "Play Again";
+        btn.onclick = ()=>{
+            location.reload();
+        }
     }
 }
 
-btn.addEventListener('click', ()=>{
+btn.onclick = ()=>{
     guessLetter();
-})
+}
